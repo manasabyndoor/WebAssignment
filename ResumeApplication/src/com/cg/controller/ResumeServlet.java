@@ -1,25 +1,28 @@
-package co.resume.servlet;
+package com.resume.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.resume.bean.Resume;
+
 /**
- * Servlet implementation class ResumeServlet
+ * Servlet implementation class ResumeController
  */
 @WebServlet("/resume")
-public class ResumeServlet extends HttpServlet {
+public class ResumeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ResumeServlet() {
+    public ResumeController() {
         super();
     }
 
@@ -27,20 +30,12 @@ public class ResumeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out=response.getWriter();
-		out.println("<h1>hello</h1>");
-		out.println("<h1>First Name: "+request.getParameter("firstName")+"\n</h1>");
-		out.println("<h1>Last Name: "+request.getParameter("lastName")+"\n</h1>");
-		out.println("<h1>Gender: "+request.getParameter("gender")+"\n</h1>");
-		out.println("<h1>Highest Qualification: "+request.getParameter("qualification")+"\n</h1>");
-		out.println("<h1>Date of Birth: "+request.getParameter("dob")+"\n</h1>");
-		out.println("<h1>Hobbies: "+request.getParameter("hobbies")+"\n</h1>");
-		out.println("<h1>Address: "+request.getParameter("address")+"\n</h1>");
-		out.println("<h1>Skills: "+request.getParameter("skill")+"\n</h1>");
-		out.println("<h1>Email: "+request.getParameter("email")+"\n</h1>");
-		out.println("<h1>Website: "+request.getParameter("weburl")+"\n</h1>");
-		out.println("<h1>Contact No: "+request.getParameter("contact")+"\n</h1>");
-		out.println("<h1>Description: "+request.getParameter("description")+"\n</h1>");
+//		PrintWriter out=response.getWriter();
+//		out.println("<h1>hello</h1>");
+		Resume resume=new Resume(request.getParameter("firstName"), request.getParameter("lastName"), request.getParameter("gender"), request.getParameter("qualification"), request.getParameter("dob"), request.getParameter("hobbies"), request.getParameter("address"), request.getParameter("email"), request.getParameter("weburl"), request.getParameter("contact"), request.getParameter("description"),request.getParameterValues("skill"));
+		request.setAttribute("resume", resume);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		dispatcher.forward(request, response);		
 	}
 
 	/**
