@@ -1,4 +1,4 @@
-package com.resume.bean;
+package com.cg.model;
 
 public class Resume {
 	private String firstName,lastName,gender,qualification,dob,hobbies,address,email,weburl,contact,description;
